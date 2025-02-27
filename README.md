@@ -15,3 +15,10 @@ A representação de um grafo pode ser feita de várias formas, sendo a lista de
 A busca em largura (BFS) é um algoritmo de percorrimento de grafos que explora todos os vértices de um nível antes de avançar para o próximo. Ele utiliza uma fila para garantir que os nós sejam visitados na ordem correta, sendo útil para encontrar o caminho mais curto em grafos não ponderados.<br>
 [Implementação BFS](https://github.com/RaulPavani/Grafos/tree/main/Grafos/Graph.cs#L46-L73)
 <br><br><br>
+
+### [Grafos Conexos](https://pt.wikipedia.org/wiki/Conectividade_(teoria_dos_grafos))
+Grafos conexos são grafos em que existe um caminho entre qualquer par de vértices. Em outras palavras, em um grafo conexo, é possível ir de qualquer vértice para qualquer outro, seja por meio de uma sequência de arestas ou por um caminho direto.<br>
+[Implementação algoritmo que verifica se o grafo é conexo usando BFS](https://github.com/RaulPavani/Grafos/tree/main/Grafos/Graph.cs#L166-L183)
+<br><br><br>
+
+
