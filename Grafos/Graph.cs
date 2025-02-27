@@ -1,7 +1,9 @@
-﻿public class Graph
+﻿using System.Linq;
+
+public class Graph
 {
     //Numero de vertices que compoe o grafo
-    private int numVertices;
+    public int numVertices;
     //Lista de adjacência - Grafo representado em uma lista de listas
     //(Cada vertice, tem uma lista de vizinhos adjacentes)
     public List<List<int>> adjList = new List<List<int>>();
@@ -44,22 +46,24 @@
     /// Realiza busca em largura na lista de adjacência
     /// </summary>
     /// <param name="startVertice">Vertice para começar a busca</param>
-    public void BreadthFirstSearch(int startVertice)
+    /// <param name="visited">Vetor que mantém o controle dos vértices visitados</param>
+    public void BreadthFirstSearch(int startVertice, bool[] visited)
     {
-        //Vetor dos vertices - se foram visitados ou nao
-        bool[] visited = new bool[numVertices];
         //Fila de vizinhos
         Queue<int> queue = new Queue<int>();
 
-        //Marca o nosso vertice inicial como visitado,
+        bool[] visitedCopy = [..visited];
+
+        // Marca o vértice inicial como visitado
         //e adiciona na fila para visitar os vizinhos dele
-        visited[startVertice] = true;
+        visitedCopy[startVertice] = true;
         queue.Enqueue(startVertice);
 
         while (queue.Count > 0)
         {
             //Pega o primeiro elemento da fila
             int currentVertex = queue.Dequeue();
+            //Imprime o vertice atual
             Console.Write(currentVertex + " ");
 
             //Visita dos vizinhos desse elemento e adiciona na fila
@@ -152,5 +156,32 @@
             }
         }
     }
+
+    /// <summary>
+    /// Verifica se o grafo é conectado. Um grafo é considerado conectado se houver um caminho entre qualquer par de vértices.
+    /// O método realiza uma busca em largura (BFS) a partir do vértice 0 e verifica se todos os vértices foram visitados.
+    /// Se algum vértice não for visitado após a busca, o grafo não é conectado.
+    /// </summary>
+    /// <returns>Retorna <c>true</c> se o grafo for conectado, caso contrário, retorna <c>false</c></returns>
+    public bool IsConnected()
+    {
+        bool[] visited = new bool[numVertices];
+
+        BreadthFirstSearch(0, visited);
+
+        for (int i = 0; i < visited.Length; i++)
+        {
+            if (!visited[i])
+            {
+                Console.WriteLine("Nao conectado");
+                return false;
+            }
+        }
+
+        Console.WriteLine("Conectado");
+        return true;
+    }
+
     #endregion
+
 }

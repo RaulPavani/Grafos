@@ -9,12 +9,12 @@
         graph.AddEdge(0, 1);
         graph.AddEdge(0, 2);
         graph.AddEdge(1, 2);
-        graph.AddEdge(1, 3);
-        graph.AddEdge(2, 4);
+        //graph.AddEdge(1, 3);
+        //graph.AddEdge(2, 4);
         graph.AddEdge(3, 4);
 
-        //Realiza a busca BFS
-        graph.BreadthFirstSearch(0);
+        //Verifica se um grafo é conectado ou nao
+        graph.IsConnected();
     }
 }
 
