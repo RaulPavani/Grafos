@@ -39,6 +39,7 @@
         adjMatrix[dest, src] = true;
     }
 
+    #region BFS
     /// <summary>
     /// Realiza busca em largura na lista de adjacência
     /// </summary>
@@ -72,4 +73,84 @@
             }
         }
     }
+    #endregion
+
+    #region DFS
+    /// <summary>
+    /// Realiza busca em profundidade na lista de adjacência utilizando uma pilha
+    /// </summary>
+    /// <param name="startVertice">Vertice para começar a busca</param>
+    public void DepthFirstSearch(int startVertice)
+    {
+        // Vetor dos vértices - se foram visitados ou não
+        bool[] visited = new bool[numVertices];
+
+        // Pilha para simular o comportamento recursivo
+        Stack<int> stack = new Stack<int>();
+
+        // Adiciona o vértice inicial na pilha
+        stack.Push(startVertice);
+
+        while (stack.Count > 0)
+        {
+            // Pega o topo da pilha (último vértice inserido)
+            int currentVertex = stack.Pop();
+
+            // Se o vértice já foi visitado, continua para o próximo
+            if (visited[currentVertex])
+                continue;
+
+            // Marca o vértice como visitado e imprime
+            visited[currentVertex] = true;
+            Console.Write(currentVertex + " ");
+
+            // Adiciona os vizinhos não visitados à pilha
+            // Os vizinhos são inseridos na pilha na ordem inversa para que o primeiro da lista seja visitado primeiro
+            foreach (int adj in adjList[currentVertex])
+            {
+                if (!visited[adj])
+                {
+                    stack.Push(adj);
+                }
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Realiza busca em profundidade na lista de adjacência utilizando recursividade
+    /// </summary>
+    /// <param name="startVertice">Vertice para começar a busca</param>
+    public void DepthFirstSearchRecursive(int startVertice)
+    {
+        // Vetor dos vértices - se foram visitados ou não
+        bool[] visited = new bool[numVertices];
+
+        // Chama o método auxiliar recursivo
+        DFSRecursive(startVertice, visited);
+    }
+
+    /// <summary>
+    /// Método auxiliar recursivo para realizar a busca em profundidade
+    /// </summary>
+    /// <param name="vertex">Vértice atual</param>
+    /// <param name="visited">Vetor de vértices visitados</param>
+    private void DFSRecursive(int vertex, bool[] visited)
+    {
+        // Marca o vértice como visitado
+        visited[vertex] = true;
+
+        // Exibe o vértice visitado
+        Console.Write(vertex + " ");
+
+        // Visita todos os vizinhos não visitados
+        foreach (int adj in adjList[vertex])
+        {
+            if (!visited[adj])
+            {
+                DFSRecursive(adj, visited);
+            }
+        }
+    }
+    #endregion
 }
