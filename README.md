@@ -8,17 +8,22 @@ Neste repositório, você encontrará implementações de algoritmos clássicos 
 
 ### [Criação de Grafo e Lista de Adjacência](https://pt.wikipedia.org/wiki/Lista_de_adjac%C3%AAncia)
 A representação de um grafo pode ser feita de várias formas, sendo a lista de adjacência uma das mais eficientes em termos de espaço. Nesse método, cada vértice mantém uma lista de nós adjacentes, facilitando operações como inserção e busca de conexões. A adição de arestas conecta os vértices, permitindo a modelagem de diferentes tipos de grafos. <br>
-[Implementação Grafo e Lista de Adjacência](https://github.com/RaulPavani/Grafos/tree/main/Grafos/Graph.cs#L3-L40)
-<br><br><br>
+Implementação: [C#](https://github.com/RaulPavani/Grafos/tree/main/Grafos/C%23/Graph.cs#L3-L28) - [C](https://github.com/RaulPavani/Grafos/tree/main/Grafos/C/src/graph.c#L7-L19) <br>
+<br>
 
 ### [Breadth-first search (BFS)](https://pt.wikipedia.org/wiki/Busca_em_largura)
 A busca em largura (BFS) é um algoritmo de percorrimento de grafos que explora todos os vértices de um nível antes de avançar para o próximo. Ele utiliza uma fila para garantir que os nós sejam visitados na ordem correta, sendo útil para encontrar o caminho mais curto em grafos não ponderados.<br>
-[Implementação BFS](https://github.com/RaulPavani/Grafos/tree/main/Grafos/Graph.cs#L46-L73)
-<br><br><br>
+Implementação: [C#](https://github.com/RaulPavani/Grafos/tree/main/Grafos/C%23/Graph.cs#L50-L79) - [C](https://github.com/RaulPavani/Grafos/tree/main/Grafos/C/src/graph.c#L31-L50) <br>
+<br>
+
+### [Depth-first search (DFS)](https://pt.wikipedia.org/wiki/Busca_em_profundidade)
+A busca em profundidade (DFS) é um algoritmo de percorrimento de grafos que explora o máximo possível de um caminho antes de retroceder. Ele utiliza uma pilha (ou recursão) para gerenciar os nós visitados, avançando profundamente por um ramo até não poder mais, e depois retornando para explorar outros caminhos.<br>
+Implementação: [C#](https://github.com/RaulPavani/Grafos/tree/main/Grafos/C%23/Graph.cs#L87-L158) - [C](https://github.com/RaulPavani/Grafos/tree/main/Grafos/C/src/graph.c#L53-L91) <br>
+<br>
 
 ### [Grafos Conexos](https://pt.wikipedia.org/wiki/Conectividade_(teoria_dos_grafos))
 Grafos conexos são grafos em que existe um caminho entre qualquer par de vértices. Em outras palavras, em um grafo conexo, é possível ir de qualquer vértice para qualquer outro, seja por meio de uma sequência de arestas ou por um caminho direto.<br>
-[Implementação algoritmo que verifica se o grafo é conexo usando BFS](https://github.com/RaulPavani/Grafos/tree/main/Grafos/Graph.cs#L166-L183)
-<br><br><br>
+Implementação: [C#](https://github.com/RaulPavani/Grafos/tree/main/Grafos/C%23/Graph.cs#L166-L183) - [C](https://github.com/RaulPavani/Grafos/tree/main/Grafos/C/src/graph.c#L94-L105) <br>
+<br>
 
 
