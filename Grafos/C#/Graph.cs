@@ -6,11 +6,10 @@ public class Graph
     public int numVertices;
     //Lista de adjacência - Grafo representado em uma lista de listas
     //(Cada vertice, tem uma lista de vizinhos adjacentes)
-    public List<List<int>> adjList = new List<List<int>>();
+    public List<List<(int, int)>> adjList = new List<List<(int,int)>>();
 
     //Representação das arestas em forma de matriz de adjacência
-    public bool[,] adjMatrix;
-
+    public int?[,] adjMatrix;
 
     /// <summary>
     /// Construtor do Grafo
@@ -19,11 +18,11 @@ public class Graph
     public Graph(int vertices)
     {
         numVertices = vertices;
-        adjMatrix = new bool[vertices, vertices];
+        adjMatrix = new int?[vertices, vertices];
 
         for (int i = 0; i < numVertices; i++)
         {
-            adjList.Add(new List<int>());
+            adjList.Add(new List<(int, int)>());
         }
     }
 
@@ -32,13 +31,13 @@ public class Graph
     /// </summary>
     /// <param name="src">Vertice Origem</param>
     /// <param name="dest">Vertice Destino</param>
-    public void AddEdge(int src, int dest)
+    public void AddEdge(int src, int dest, int weight)
     {
-        adjList[src].Add(dest);
-        adjList[dest].Add(src);
+        adjList[src].Add((dest, weight));
+        adjList[dest].Add((src, weight));
 
-        adjMatrix[src, dest] = true;
-        adjMatrix[dest, src] = true;
+        adjMatrix[src, dest] = weight;
+        adjMatrix[dest, src] = weight;
     }
 
     #region BFS
@@ -67,7 +66,7 @@ public class Graph
             Console.Write(currentVertex + " ");
 
             //Visita dos vizinhos desse elemento e adiciona na fila
-            foreach (int adj in adjList[currentVertex])
+            foreach ((int adj, _) in adjList[currentVertex])
             {
                 if (!visited[adj])
                 {
@@ -110,7 +109,7 @@ public class Graph
 
             // Adiciona os vizinhos não visitados à pilha
             // Os vizinhos são inseridos na pilha na ordem inversa para que o primeiro da lista seja visitado primeiro
-            foreach (int adj in adjList[currentVertex])
+            foreach ((int adj, _) in adjList[currentVertex])
             {
                 if (!visited[adj])
                 {
@@ -148,7 +147,7 @@ public class Graph
         Console.Write(vertex + " ");
 
         // Visita todos os vizinhos não visitados
-        foreach (int adj in adjList[vertex])
+        foreach ((int adj, _) in adjList[vertex])
         {
             if (!visited[adj])
             {
@@ -181,7 +180,51 @@ public class Graph
         Console.WriteLine("Conectado");
         return true;
     }
-
     #endregion
+
+    public int[] Dijkstra(int start)
+    {
+        // Inicializa as distâncias com "infinito"
+        int[] distances = new int[numVertices];
+        bool[] visited = new bool[numVertices];
+
+        for (int i = 0; i < numVertices; i++)
+            distances[i] = int.MaxValue;
+
+        // A distância para o próprio início é 0
+        distances[start] = 0;
+
+        // Criar uma fila de prioridade simples (min-heap seria melhor, mas vamos com a forma básica)
+        for (int i = 0; i < numVertices; i++)
+        {
+            // Seleciona o vértice não visitado com a menor distância
+            int u = -1;
+            int minDistance = int.MaxValue;
+
+            for (int j = 0; j < numVertices; j++)
+            {
+                if (!visited[j] && distances[j] < minDistance)
+                {
+                    u = j;
+                    minDistance = distances[j];
+                }
+            }
+
+            // Todos os vértices acessíveis já foram visitados
+            if (u == -1) break;
+            visited[u] = true;
+
+            // Atualiza as distâncias dos vizinhos de 'u'
+            foreach ((int neighbor, int weight) in adjList[u])
+            {
+                if (!visited[neighbor] && distances[u] + weight < distances[neighbor])
+                {
+                    distances[neighbor] = distances[u] + weight;
+                }
+            }
+        }
+
+        return distances;
+    }
 
 }
